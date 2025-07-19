@@ -60,7 +60,7 @@
             compatible = "zmk,behavior-sensor-rotate";
             label = "SCROLLING";
             #sensor-binding-cells = <0>;
-            bindings = <&msc SCRL_UP>, <&msc SCRL_DOWN>;
+            bindings = <&kp UP_ARROW>, <&kp DOWN_ARROW>;
         };
     };
 

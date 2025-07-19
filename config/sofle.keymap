@@ -55,6 +55,15 @@
         };
     };
 
+    behaviors {
+        scrolling: scrolling {
+            compatible = "zmk,behavior-sensor-rotate";
+            label = "SCROLLING";
+            #sensor-binding-cells = <0>;
+            bindings = <&msc SCRL_UP>, <&msc SCRL_DOWN>;
+        };
+    };
+
     keymap {
         compatible = "zmk,keymap";
 
@@ -93,31 +102,27 @@
             //               |     |      |      |      |        |  |       |      |       |       |      |
 
             bindings = <
-&trans  &kp F1      &kp F2     &kp F3      &kp F4       &kp F5                    &kp F6            &kp F7             &kp F8        &kp F9     &kp F10  &kp DELETE
-&trans  &kp F11     &kp F12    &trans      &trans       &trans                    &kp LEFT_BRACKET  &kp RIGHT_BRACKET  &kp UP_ARROW  &trans     &trans   &trans
-&trans  &trans      &trans     &trans      &trans       &trans                    &trans            &kp LEFT           &kp DOWN      &kp RIGHT  &trans   &trans
-&trans  &kp K_UNDO  &kp K_CUT  &kp K_COPY  &kp K_PASTE  &trans  &trans    &trans  &trans            &trans             &trans        &trans     &trans   &trans
-                    &trans     &trans      &trans       &trans  &trans    &trans  &trans            &trans             &trans        &trans
+&trans  &kp F1      &kp F2     &kp F3      &kp F4       &kp F5                       &kp F6            &kp F7             &kp F8        &kp F9     &kp F10  &kp DELETE
+&trans  &kp F11     &kp F12    &trans      &trans       &trans                       &kp LEFT_BRACKET  &kp RIGHT_BRACKET  &kp UP_ARROW  &trans     &trans   &trans
+&trans  &trans      &trans     &trans      &trans       &trans                       &trans            &kp LEFT           &kp DOWN      &kp RIGHT  &trans   &trans
+&trans  &kp K_UNDO  &kp K_CUT  &kp K_COPY  &kp K_PASTE  &trans  &kp MINUS    &trans  &trans            &trans             &trans        &trans     &trans   &trans
+                    &trans     &trans      &trans       &trans  &trans       &trans  &trans            &trans             &trans        &trans
             >;
 
-            sensor-bindings =
-                <&inc_dec_kp A B>,
-                <&inc_dec_kp C_AC_SCROLL_UP C_AC_SCROLL_DOWN>;
+            sensor-bindings = <&inc_dec_kp A B>, <&scrolling>;
         };
 
         raise_layer {
             display-name = "raise";
             bindings = <
-&trans  &kp F1      &kp F2     &kp F3      &kp F4       &kp F5                    &kp F6            &kp F7             &kp F8        &kp F9     &kp F10  &kp DELETE
-&trans  &kp F11     &kp F12    &trans      &trans       &trans                    &kp LEFT_BRACKET  &kp RIGHT_BRACKET  &kp UP_ARROW  &trans     &trans   &trans
-&trans  &trans      &trans     &trans      &trans       &trans                    &trans            &kp LEFT           &kp DOWN      &kp RIGHT  &trans   &trans
-&trans  &kp K_UNDO  &kp K_CUT  &kp K_COPY  &kp K_PASTE  &trans  &trans    &trans  &trans            &trans             &trans        &trans     &trans   &trans
-                    &trans     &trans      &trans       &trans  &trans    &trans  &trans            &trans             &trans        &trans
+&trans  &kp F1      &kp F2     &kp F3      &kp F4       &kp F5                       &kp F6            &kp F7             &kp F8        &kp F9     &kp F10  &kp DELETE
+&trans  &kp F11     &kp F12    &trans      &trans       &trans                       &kp LEFT_BRACKET  &kp RIGHT_BRACKET  &kp UP_ARROW  &trans     &trans   &trans
+&trans  &trans      &trans     &trans      &trans       &trans                       &trans            &kp LEFT           &kp DOWN      &kp RIGHT  &trans   &trans
+&trans  &kp K_UNDO  &kp K_CUT  &kp K_COPY  &kp K_PASTE  &trans  &kp MINUS    &trans  &trans            &trans             &trans        &trans     &trans   &trans
+                    &trans     &trans      &trans       &trans  &trans       &trans  &trans            &trans             &trans        &trans
             >;
 
-            sensor-bindings =
-                <&inc_dec_kp A B>,
-                <&inc_dec_kp C_AC_SCROLL_UP C_AC_SCROLL_DOWN>;
+            sensor-bindings = <&inc_dec_kp A B>, <&scrolling>;
         };
 
         adjust_layer {

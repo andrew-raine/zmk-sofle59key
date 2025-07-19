@@ -12,11 +12,11 @@
 
 // Encoders
 
-&sensors { triggers-per-rotation = <5>; };
+&sensors { triggers-per-rotation = <20>; };
 
-&left_encoder { steps = <100>; };
+&left_encoder { steps = <20>; };
 
-&right_encoder { steps = <100>; };
+&right_encoder { steps = <20>; };
 
 #define BASE 0
 #define LOWER 1

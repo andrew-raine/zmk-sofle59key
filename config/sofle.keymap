@@ -14,7 +14,7 @@
 
 &sensors { triggers-per-rotation = <20>; };
 
-&left_encoder { steps = <80>; };
+&left_encoder { status = "disabled"; };
 
 &right_encoder { steps = <80>; };
 
@@ -56,10 +56,10 @@
     };
 
     behaviors {
-        scrolling: scrolling {
-            compatible = "zmk,behavior-sensor-rotate";
-            label = "SCROLLING";
-            #sensor-binding-cells = <0>;
+        scroll_fast: scroll_fast {
+            compatible = "zmk,behavior-sensor-rotate-var";
+            label = "SCROLL_FAST";
+            #sensor-binding-cells = <1>; 
             bindings = <&kp UP_ARROW>, <&kp DOWN_ARROW>;
         };
     };
@@ -87,7 +87,7 @@
                           &kp LCTRL  &kp LALT  &mo 2   &kp SPACE  &kp RETURN    &kp ENTER   &kp SPACE  &mo 1   &kp RALT   &kp RCTRL
             >;
 
-            sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &inc_dec_kp C_VOL_UP C_VOL_DN>;
+            sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>;
         };
 
         lower_layer {
@@ -109,7 +109,9 @@
                     &trans     &trans      &trans       &trans  &trans       &trans  &trans            &trans             &trans        &trans
             >;
 
-            sensor-bindings = <&inc_dec_kp A B>, <&scrolling>;
+            sensor-bindings = <
+                &scroll_fast 3 3
+            >;
         };
 
         raise_layer {
@@ -122,7 +124,9 @@
                     &trans     &trans      &trans       &trans  &trans       &trans  &trans            &trans             &trans        &trans
             >;
 
-            sensor-bindings = <&inc_dec_kp A B>, <&scrolling>;
+            sensor-bindings = <
+                &scroll_fast 3 3
+            >;
         };
 
         adjust_layer {
@@ -142,9 +146,9 @@
                                  &none         &none         &none         &none           &none    &none  &none  &none  &none  &none
             >;
 
-            sensor-bindings =
-                <&inc_dec_kp C_VOL_UP C_VOL_DN>,
-                <&inc_dec_kp K_SCROLL_UP K_SCROLL_DOWN>;
+            sensor-bindings = <
+                &scroll_fast 3 3
+            >;
         };
 
         extra_layer {
@@ -164,7 +168,9 @@
                        &none           &none            &none  &none           &none    &none  &none  &none  &none  &none
             >;
 
-            sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &inc_dec_kp PG_UP PG_DN>;
+            sensor-bindings = <
+                &scroll_fast 3 3
+            >;
         };
     };
 };

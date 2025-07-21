@@ -41,17 +41,32 @@
 
         backspace {
             bindings = <&kp BACKSPACE>;
-            key-positions = <32 31>;
-        };
-
-        delete {
-            bindings = <&kp DELETE>;
-            key-positions = <27 33>;
+            key-positions = <31 28>;
         };
 
         esc {
             bindings = <&kp ESCAPE>;
-            key-positions = <25 41>;
+            key-positions = <25 34>;
+        };
+
+        underscore {
+            bindings = <&kp UNDER>;
+            key-positions = <32 31>;
+        };
+
+        equals {
+            bindings = <&kp EQUAL>;
+            key-positions = <27 28>;
+        };
+
+        plus {
+            bindings = <&kp PLUS>;
+            key-positions = <16 15>;
+        };
+
+        minus {
+            bindings = <&kp MINUS>;
+            key-positions = <20 19>;
         };
     };
 
@@ -102,11 +117,11 @@
             //               |     |      |      |      |        |  |       |      |       |       |      |
 
             bindings = <
-&trans  &kp F1      &kp F2     &kp F3      &kp F4       &kp F5                       &kp F6            &kp F7             &kp F8        &kp F9     &kp F10  &kp DELETE
-&trans  &kp F11     &kp F12    &trans      &trans       &trans                       &kp LEFT_BRACKET  &kp RIGHT_BRACKET  &kp UP_ARROW  &trans     &trans   &trans
-&trans  &trans      &trans     &trans      &trans       &trans                       &trans            &kp LEFT           &kp DOWN      &kp RIGHT  &trans   &trans
-&trans  &kp K_UNDO  &kp K_CUT  &kp K_COPY  &kp K_PASTE  &trans  &kp MINUS    &trans  &trans            &trans             &trans        &trans     &trans   &trans
-                    &trans     &trans      &trans       &trans  &trans       &trans  &trans            &trans             &trans        &trans
+&trans  &kp F1      &kp F2     &kp F3      &kp F4       &kp F5                       &kp F6            &kp F7             &kp F8            &kp F9      &kp F10  &kp DELETE
+&trans  &kp F11     &kp F12    &trans      &trans       &trans                       &kp LEFT_BRACKET  &kp RIGHT_BRACKET  &kp UP_ARROW      &trans      &trans   &trans
+&trans  &trans      &trans     &trans      &trans       &trans                       &trans            &kp LEFT           &kp DOWN          &kp RIGHT   &trans   &trans
+&trans  &kp K_UNDO  &kp K_CUT  &kp K_COPY  &kp K_PASTE  &trans  &kp MINUS    &trans  &trans            &kp K_PREVIOUS     &kp K_PLAY_PAUSE  &kp K_NEXT  &trans   &trans
+                    &trans     &trans      &trans       &trans  &trans       &trans  &trans            &trans             &trans            &trans
             >;
 
             sensor-bindings = <&inc_dec_kp A B>, <&scrolling>;
@@ -115,11 +130,11 @@
         raise_layer {
             display-name = "raise";
             bindings = <
-&trans  &kp F1      &kp F2     &kp F3      &kp F4       &kp F5                       &kp F6            &kp F7             &kp F8        &kp F9     &kp F10  &kp DELETE
-&trans  &kp F11     &kp F12    &trans      &trans       &trans                       &kp LEFT_BRACKET  &kp RIGHT_BRACKET  &kp UP_ARROW  &trans     &trans   &trans
-&trans  &trans      &trans     &trans      &trans       &trans                       &trans            &kp LEFT           &kp DOWN      &kp RIGHT  &trans   &trans
-&trans  &kp K_UNDO  &kp K_CUT  &kp K_COPY  &kp K_PASTE  &trans  &kp MINUS    &trans  &trans            &trans             &trans        &trans     &trans   &trans
-                    &trans     &trans      &trans       &trans  &trans       &trans  &trans            &trans             &trans        &trans
+&trans  &kp F1      &kp F2     &kp F3      &kp F4       &kp F5                       &kp F6            &kp F7             &kp F8            &kp F9      &kp F10  &kp DELETE
+&trans  &kp F11     &kp F12    &trans      &trans       &trans                       &kp LEFT_BRACKET  &kp RIGHT_BRACKET  &kp UP_ARROW      &trans      &trans   &trans
+&trans  &trans      &trans     &trans      &trans       &trans                       &trans            &kp LEFT           &kp DOWN          &kp RIGHT   &trans   &trans
+&trans  &kp K_UNDO  &kp K_CUT  &kp K_COPY  &kp K_PASTE  &trans  &kp MINUS    &trans  &trans            &kp K_PREVIOUS     &kp K_PLAY_PAUSE  &kp K_NEXT  &trans   &trans
+                    &trans     &trans      &trans       &trans  &trans       &trans  &trans            &trans             &trans            &trans
             >;
 
             sensor-bindings = <&inc_dec_kp A B>, <&scrolling>;

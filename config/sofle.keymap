@@ -31,7 +31,12 @@
 
         adjust_layer {
             if-layers = <1 2>;
-            then-layer = <3>;
+            then-layer = <0>;
+        };
+
+        windows_adjust {
+            if-layers = <3 4>;
+            then-layer = <0>;
         };
     };
 
@@ -67,6 +72,11 @@
             bindings = <&kp MINUS>;
             key-positions = <20 19>;
         };
+
+        toggle_windows_layer {
+            bindings = <&tog 6>;
+            key-positions = <36 54 55 49>;
+        };
     };
 
     behaviors {
@@ -76,12 +86,100 @@
             #sensor-binding-cells = <0>;
             bindings = <&kp UP_ARROW>, <&kp DOWN_ARROW>;
         };
+
+        music: music {
+            compatible = "zmk,behavior-sensor-rotate";
+            label = "MUSIC";
+            #sensor-binding-cells = <0>;
+            bindings = <&kp C_NEXT>, <&kp C_PREVIOUS>;
+        };
     };
 
     keymap {
         compatible = "zmk,keymap";
 
         // swap C_MUTE & EQUAL for encoder on the right
+
+        adjust_layer {
+            // ----------------------------------------------------------------------------------------------------------------------------
+            // | BTCLR  |  BT1    |  BT2    |   BT3   |   BT4   |   BT5   |                  |      |      |       |      |       |       |
+            // | EXTPWR | RGB_HUD | RGB_HUI | RGB_SAD | RGB_SAI | RGB_EFF |                  |      |      |       |      |       |       |
+            // |        | RGB_BRD | RGB_BRI |         |         |         |                  |      |      |       |      |       |       |
+            // |        |         |         |         |         |         | RGB_TOG | |      |      |      |       |      |       |       |
+            //                    |         |         |         |         |         | |      |      |      |       |      |
+
+            display-name = "adjust";
+            bindings = <
+&ext_power EP_TOG  &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4                               &none  &none  &none  &none  &none  &bt BT_CLR_ALL
+&trans             &none         &none         &none         &none         &studio_unlock                             &none  &none  &none  &none  &none  &bt BT_CLR
+&none              &none         &none         &none         &none         &none                                      &none  &none  &none  &none  &none  &none
+&none              &none         &none         &none         &none         &caps_word      &none    &kp C_PLAY_PAUSE  &none  &none  &none  &none  &none  &none
+                                 &none         &none         &none         &none           &none    &none             &none  &none  &none  &none
+            >;
+
+            sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>, <&music>;
+        };
+
+        lower_layer {
+            display-name = "lower";
+
+            // TODO: Some binds are waiting for shifted keycode support.
+            // ------------------------------------------------------------------------------------------------------------
+            // |       |  F1 |  F2 |  F3  |  F4  |  F5  |                   |  F6  |  F7   |  F8   |  F9  |  F10  |  F11  |
+            // |   `   |  1  |  2  |  3   |  4   |  5   |                   |  6   |  7    |  8    |  9   |   0   |  F12  |
+            // |       |  !  |  @  |  #   |  $   |  %   |                   |  ^   |  &    |  *    |  (   |   )   |   |   |
+            // |       |  =  |  -  |  +   |  {   |  }   |        |  |       |  [   |  ]    |  ;    |  :   |   \   |       |
+            //               |     |      |      |      |        |  |       |      |       |       |      |
+
+            bindings = <
+&kp TILDE  &kp F1     &kp F2     &kp F3     &kp F4     &kp F5                                 &kp F6            &kp F7             &kp F8            &kp F9      &kp F10  &kp PRINTSCREEN
+&trans     &kp F11    &kp F12    &trans     &trans     &trans                                 &kp LEFT_BRACKET  &kp RIGHT_BRACKET  &kp UP_ARROW      &trans      &trans   &trans
+&trans     &kp LG(Z)  &kp LG(X)  &kp LG(C)  &kp LG(V)  &trans                                 &trans            &kp LEFT           &kp DOWN          &kp RIGHT   &trans   &trans
+&trans     &trans     &trans     &trans     &trans     &trans  &kp MINUS    &kp C_PLAY_PAUSE  &trans            &kp C_PREVIOUS     &kp C_PLAY_PAUSE  &kp C_NEXT  &trans   &trans
+                      &trans     &trans     &trans     &trans  &trans       &trans            &trans            &trans             &trans            &trans
+            >;
+
+            sensor-bindings = <&inc_dec_kp A B>, <&music>;
+        };
+
+        raise_layer {
+            display-name = "raise";
+            bindings = <
+&kp TILDE  &kp F1     &kp F2     &kp F3     &kp F4     &kp F5                                 &kp F6            &kp F7             &kp F8            &kp F9      &kp F10  &kp PRINTSCREEN
+&trans     &kp F11    &kp F12    &trans     &trans     &trans                                 &kp LEFT_BRACKET  &kp RIGHT_BRACKET  &kp UP_ARROW      &trans      &trans   &trans
+&trans     &kp LG(Z)  &kp LG(X)  &kp LG(C)  &kp LG(V)  &trans                                 &trans            &kp LEFT           &kp DOWN          &kp RIGHT   &trans   &trans
+&trans     &trans     &trans     &trans     &trans     &trans  &kp MINUS    &kp C_PLAY_PAUSE  &trans            &kp C_PREVIOUS     &kp C_PLAY_PAUSE  &kp C_NEXT  &trans   &trans
+                      &trans     &trans     &trans     &trans  &trans       &trans            &trans            &trans             &trans            &trans
+            >;
+
+            sensor-bindings = <&inc_dec_kp A B>, <&music>;
+        };
+
+        windows_lower {
+            display-name = "wlower";
+            bindings = <
+&kp TILDE  &kp F1     &kp F2     &kp F3     &kp F4     &kp F5                                 &kp F6            &kp F7             &kp F8            &kp F9      &kp F10  &kp PRINTSCREEN
+&trans     &kp F11    &kp F12    &trans     &trans     &trans                                 &kp LEFT_BRACKET  &kp RIGHT_BRACKET  &kp UP_ARROW      &trans      &trans   &trans
+&trans     &kp LC(Z)  &kp LC(X)  &kp LC(C)  &kp LC(V)  &trans                                 &trans            &kp LEFT           &kp DOWN          &kp RIGHT   &trans   &trans
+&trans     &trans     &trans     &trans     &trans     &trans  &kp MINUS    &kp C_PLAY_PAUSE  &trans            &kp C_PREVIOUS     &kp C_PLAY_PAUSE  &kp C_NEXT  &trans   &trans
+                      &trans     &trans     &trans     &trans  &trans       &trans            &trans            &trans             &trans            &trans
+            >;
+
+            sensor-bindings = <&inc_dec_kp A B>, <&music>;
+        };
+
+        windows_raise {
+            display-name = "wraise";
+            bindings = <
+&kp TILDE  &kp F1     &kp F2     &kp F3     &kp F4     &kp F5                                 &kp F6            &kp F7             &kp F8            &kp F9      &kp F10  &kp PRINTSCREEN
+&trans     &kp F11    &kp F12    &trans     &trans     &trans                                 &kp LEFT_BRACKET  &kp RIGHT_BRACKET  &kp UP_ARROW      &trans      &trans   &trans
+&trans     &kp LC(Z)  &kp LC(X)  &kp LC(C)  &kp LC(V)  &trans                                 &trans            &kp LEFT           &kp DOWN          &kp RIGHT   &trans   &trans
+&trans     &trans     &trans     &trans     &trans     &trans  &kp MINUS    &kp C_PLAY_PAUSE  &trans            &kp C_PREVIOUS     &kp C_PLAY_PAUSE  &kp C_NEXT  &trans   &trans
+                      &trans     &trans     &trans     &trans  &trans       &trans            &trans            &trans             &trans            &trans
+            >;
+
+            sensor-bindings = <&inc_dec_kp A B>, <&music>;
+        };
 
         default_layer {
             display-name = "default";
@@ -104,61 +202,19 @@
             sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &inc_dec_kp C_VOL_UP C_VOL_DN>;
         };
 
-        lower_layer {
-            display-name = "lower";
-
-            // TODO: Some binds are waiting for shifted keycode support.
-            // ------------------------------------------------------------------------------------------------------------
-            // |       |  F1 |  F2 |  F3  |  F4  |  F5  |                   |  F6  |  F7   |  F8   |  F9  |  F10  |  F11  |
-            // |   `   |  1  |  2  |  3   |  4   |  5   |                   |  6   |  7    |  8    |  9   |   0   |  F12  |
-            // |       |  !  |  @  |  #   |  $   |  %   |                   |  ^   |  &    |  *    |  (   |   )   |   |   |
-            // |       |  =  |  -  |  +   |  {   |  }   |        |  |       |  [   |  ]    |  ;    |  :   |   \   |       |
-            //               |     |      |      |      |        |  |       |      |       |       |      |
-
+        windows {
+            display-name = "default2";
             bindings = <
-&kp TILDE  &kp F1      &kp F2     &kp F3      &kp F4       &kp F5                       &kp F6            &kp F7             &kp F8            &kp F9      &kp F10  &kp PRINTSCREEN
-&trans     &kp F11     &kp F12    &trans      &trans       &trans                       &kp LEFT_BRACKET  &kp RIGHT_BRACKET  &kp UP_ARROW      &trans      &trans   &trans
-&trans     &trans      &trans     &trans      &trans       &trans                       &trans            &kp LEFT           &kp DOWN          &kp RIGHT   &trans   &trans
-&trans     &kp K_UNDO  &kp K_CUT  &kp K_COPY  &kp K_PASTE  &trans  &kp MINUS    &trans  &trans            &kp C_PREVIOUS     &kp C_PLAY_PAUSE  &kp C_NEXT  &trans   &trans
-                       &trans     &trans      &trans       &trans  &trans       &trans  &trans            &trans             &trans            &trans
-            >;
-
-            sensor-bindings = <&inc_dec_kp A B>, <&scrolling>;
-        };
-
-        raise_layer {
-            display-name = "raise";
-            bindings = <
-&kp TILDE  &kp F1      &kp F2     &kp F3      &kp F4       &kp F5                       &kp F6            &kp F7             &kp F8            &kp F9      &kp F10  &kp PRINTSCREEN
-&trans     &kp F11     &kp F12    &trans      &trans       &trans                       &kp LEFT_BRACKET  &kp RIGHT_BRACKET  &kp UP_ARROW      &trans      &trans   &trans
-&trans     &trans      &trans     &trans      &trans       &trans                       &trans            &kp LEFT           &kp DOWN          &kp RIGHT   &trans   &trans
-&trans     &kp K_UNDO  &kp K_CUT  &kp K_COPY  &kp K_PASTE  &trans  &kp MINUS    &trans  &trans            &kp C_PREVIOUS     &kp C_PLAY_PAUSE  &kp C_NEXT  &trans   &trans
-                       &trans     &trans      &trans       &trans  &trans       &trans  &trans            &trans             &trans            &trans
-            >;
-
-            sensor-bindings = <&inc_dec_kp A B>, <&scrolling>;
-        };
-
-        adjust_layer {
-            // ----------------------------------------------------------------------------------------------------------------------------
-            // | BTCLR  |  BT1    |  BT2    |   BT3   |   BT4   |   BT5   |                  |      |      |       |      |       |       |
-            // | EXTPWR | RGB_HUD | RGB_HUI | RGB_SAD | RGB_SAI | RGB_EFF |                  |      |      |       |      |       |       |
-            // |        | RGB_BRD | RGB_BRI |         |         |         |                  |      |      |       |      |       |       |
-            // |        |         |         |         |         |         | RGB_TOG | |      |      |      |       |      |       |       |
-            //                    |         |         |         |         |         | |      |      |      |       |      |
-
-            display-name = "adjust";
-            bindings = <
-&ext_power EP_TOG  &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4                    &none  &none  &none  &none  &none  &bt BT_CLR_ALL
-&trans             &none         &none         &none         &none         &studio_unlock                  &none  &none  &none  &none  &none  &bt BT_CLR
-&none              &none         &none         &none         &none         &none                           &none  &none  &none  &none  &none  &none
-&none              &none         &none         &none         &none         &caps_word      &none    &none  &none  &none  &none  &none  &none  &none
-                                 &none         &none         &none         &none           &none    &none  &none  &none  &none  &none
+&gresc            &kp N1  &kp N2        &kp N3    &kp N4  &kp N5                               &kp N6     &kp N7  &kp N8     &kp N9     &kp N0    &kp BACKSPACE
+&kp TAB           &kp Q   &kp W         &kp E     &kp R   &kp T                                &kp Y      &kp U   &kp I      &kp O      &kp P     &kp BACKSLASH
+&kp LEFT_SHIFT    &kp A   &kp S         &kp D     &kp F   &kp G                                &kp H      &kp J   &kp K      &kp L      &kp APOS  &kp SEMI
+&kp LEFT_CONTROL  &kp Z   &kp X         &kp C     &kp V   &kp B      &kp EQUAL     &kp C_MUTE  &kp N      &kp M   &kp COMMA  &kp DOT    &kp FSLH  &kp RSHFT
+                          &kp LEFT_GUI  &kp LALT  &mo 2   &kp SPACE  &kp RETURN    &kp ENTER   &kp SPACE  &mo 1   &kp RALT   &kp RCTRL
             >;
 
             sensor-bindings =
                 <&inc_dec_kp C_VOL_UP C_VOL_DN>,
-                <&inc_dec_kp K_SCROLL_UP K_SCROLL_DOWN>;
+                <&inc_dec_kp C_VOL_UP C_VOL_DN>;
         };
     };
 };
